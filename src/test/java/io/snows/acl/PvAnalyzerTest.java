@@ -31,17 +31,30 @@ public class PvAnalyzerTest {
 
     @Test
     public void testPvAnalyzer() throws Exception {
+        Job job;
         String pwd = System.getProperty("user.dir");
-        String input = "file://" + pwd + "/data/access.log";
-        String output = "file://" + pwd + "/out/xxx";
-        FileUtils.deleteDirectory(new File(pwd + "/out/xxx"));
         //
-        Job job = Job.getInstance(conf);
-        job.setJobName("PvAnalyzer");
-//        FileInputFormat.setInputDirRecursive(job, true);
-        FileInputFormat.addInputPath(job, new Path(input));
-        FileOutputFormat.setOutputPath(job, new Path(output));
-        PvAnalyzer.setup(job);
+        //
+//        String input = "file://" + pwd + "/data/access.log";
+//        String output = "file://" + pwd + "/out/xxx";
+//        FileUtils.deleteDirectory(new File(pwd + "/out/xxx"));
+//        job = Job.getInstance(conf);
+//        job.setJobName("Access");
+////        FileInputFormat.setInputDirRecursive(job, true);
+//        FileInputFormat.addInputPath(job, new Path(input));
+//        FileOutputFormat.setOutputPath(job, new Path(output));
+//        PvAnalyzer.setupAccessJob(job);
+//        job.waitForCompletion(true);
+        //
+        //
+        String input2 = "file://" + pwd + "/out/xxx/IpDate-r-00000";
+        String output2 = "file://" + pwd + "/out/xxx2";
+        FileUtils.deleteDirectory(new File(pwd + "/out/xxx2"));
+        job = Job.getInstance(conf);
+        job.setJobName("Pv");
+        FileInputFormat.addInputPath(job, new Path(input2));
+        FileOutputFormat.setOutputPath(job, new Path(output2));
+        PvAnalyzer.setupPvJob(job);
         job.waitForCompletion(true);
     }
 }
